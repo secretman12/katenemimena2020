@@ -1,0 +1,185 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"></link>
+<link rel="icon" type="image/png" href="/img/flavicon.png" />
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<title>Tasks</title>
+</head>
+<body>
+	<div th:replace="fragments/GmHeader :: header"></div>
+	<div class="alert alert-success alert-dismissible fade show"
+		th:if="${deleteTask eq 'success'}">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<i class="fa fa-check-circle"></i><strong>Success!</strong> Task
+		deleted Successfully!
+	</div>
+	<div class="alert alert-success alert-dismissible fade show"
+		th:if="${saveTask eq 'success'}">
+		<button type="button" class="close" data-dismiss="alert"
+			aria-hidden="true">&times;</button>
+		<i class="fa fa-check-circle"></i><strong>Task created
+			Successfully</strong>
+	</div>
+	<div class="alert alert-success alert-dismissible fade show"
+		th:if="${modifyTask eq 'success'}">
+		<button type="button" class="close" data-dismiss="alert"
+			aria-hidden="true">&times;</button>
+		<i class="fa fa-check-circle"></i><strong>Task updated
+			Successfully</strong>
+	</div>
+	<div class="alert alert-warning alert-dismissible fade show"
+		th:if="${saveTask eq 'not80'}">
+		<button type="button" class="close" data-dismiss="alert"
+			aria-hidden="true">&times;</button>
+		<i class="fa fa-exclamation-circle"></i> <strong>Error!</strong> Task
+		must have 80 points !!!
+	</div>
+	<div class="container">
+		<br> <br>
+		<ul class="nav nav-tabs" role="tablist">
+			<li class="nav-item"><a class="nav-link active"
+				data-toggle="tab" href="#tasks"><i class="fas fa-tasks"></i>Tasks</a></li>
+			<li class="nav-item"><a class="nav-link" data-toggle="tab"
+				href="#new"><i class="fas fa-plus"></i>New Task</a></li>
+		</ul>
+		<div class="tab-content">
+			<div id="tasks" class="container tab-pane active">
+				<br>
+				<table id="example" class="table table-hover">
+					<thead class="thead-light">
+						<tr>
+							<th class="th-sm" scope="col">Teach lab points</th>
+							<th class="th-sm" scope="col">Grading points</th>
+							<th class="th-sm" scope="col">Surveillance points</th>
+							<th class="th-sm" scope="col">Status</th>
+							<th class="th-sm" scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<th:block th:each="task : ${tasks}">
+							<tr>
+								<td th:text="${task.teach_lab}">" "</td>
+								<td th:text="${task.grading}">" "</td>
+								<td th:text="${task.surveillance}">" "</td>
+								<td th:text="${task.status}">" "</td>
+								<td><a class="btn btn-danger"
+									th:href="@{'DeleteTask/' + ${task.id}}"><i
+										class="fas fa-trash-alt"></i>Delete</a> <a class="btn btn-success"
+									data-toggle="tooltip" data-placement="top" title="Edit task"
+									onClick="Toggle()" th:href="@{'getTask/' + ${task.id}}"><i
+										class="fas fa-edit"></i>Modify</a></td>
+							</tr>
+						</th:block>
+					</tbody>
+				</table>
+			</div>
+			<div id="new" class="container tab-pane fade">
+				<br>
+				<form class="px-4 py-3" th:action="@{newTask}" th:object="${task}"
+					method="post">
+					<div class="form-group">
+						<label>Teach Lab Points :</label> <input th:field="*{teach_lab}"
+							type="number" class="form-control" name="teach_lab"
+							id="teach_lab" placeholder="teach lab points" required="required" />
+					</div>
+					<div class="form-group">
+						<label>Grading Points :</label> <input th:field="*{grading}"
+							type="number" class="form-control" name="grading" id="grading"
+							placeholder="grading points" required="required" />
+					</div>
+					<div class="form-group">
+						<label>Surveillance Points :</label> <input
+							th:field="*{surveillance}" type="number" class="form-control"
+							name="surveillance" id="surveillance"
+							placeholder="surveillance points" required="required" />
+					</div>
+					<small id="taskHelpBlock" class="form-text text-muted">
+							*The task must have exactly 80 points !
+								 </small>
+					<br>
+					<input type="submit" value="Add Task"
+						class="btn btn-success btn-custom" />
+
+				</form>
+			</div>
+		</div>
+		<div th:if="${reqTask !=null}" class="modal fade" id="UpdateModal"
+			role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Modify Task</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form class="px-4 py-3"
+							th:action="@{'get/modifyTask/'+${reqTask.id}}"
+							th:object="${reqTask}" method="post">
+							<div class="form-group">
+								<label>Teach Lab Points :</label> <input th:field="*{teach_lab}"
+									type="number" class="form-control" name="teach_lab"
+									id="teach_lab" placeholder="teach lab points"
+									required="required" />
+							</div>
+							<div class="form-group">
+								<label>Grading Points :</label> <input th:field="*{grading}"
+									type="number" class="form-control" name="grading" id="grading"
+									placeholder="grading points" required="required" />
+							</div>
+							<div class="form-group">
+								<label>Surveillance Points :</label> <input
+									th:field="*{surveillance}" type="number" class="form-control"
+									name="surveillance" id="surveillance"
+									placeholder="surveillance points" required="required" />
+									<small id="taskHelpBlock" class="form-text text-muted">
+							*The task must have exactly 80 points !
+								 </small>
+							</div>
+							 <input type="hidden" th:field="*{id}" /> <input
+								type="hidden" th:field="*{status}" /> <input type="submit"
+								value="Modify Task" class="btn btn-success btn-custom" />
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type="text/javascript"
+			src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript"
+			src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('#example').DataTable();
+			});
+		</script>
+		<script>
+			$('#exampleModalCenter').modal('toggle')
+			$('#UpdateModal').modal('toggle')
+		</script>
+</body>
+</html>

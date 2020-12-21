@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+	crossorigin="anonymous" />
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<title>Welcome Admin</title>
+</head>
+<body>
+	<div th:replace="fragments/AdminHeader :: header"></div>
+	<div class="jumbotron">
+		<h1 class="display-4">Welcome Admin!</h1>
+		<p class="lead">This is a simple admin site  to manage users for our Monitoring PhDStudents Task System site!</p>
+		<hr class="my-4">
+		<p>Here you can add new user,delete a user or modify him!</p>
+		<p class="lead">
+			<a class="btn btn-primary btn-lg" th:href="@{Users}"  role="button">Learn
+				more</a>
+		</p>
+	</div>
+</body>
+</html>

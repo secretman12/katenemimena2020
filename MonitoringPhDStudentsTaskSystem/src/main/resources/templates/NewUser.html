@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="/img/flavicon.png" />
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<title>New User</title>
+</head>
+<body>
+	<div th:replace="fragments/AdminHeader :: header"></div>
+	<div class="alert alert-warning alert-dismissible fade show"
+		th:if="${param.error}">
+		<button type="button" class="close" data-dismiss="alert"
+			aria-hidden="true">&times;</button>
+		<i class="fa fa-exclamation-circle"></i> <strong>Warning</strong>
+		Invalid username or password.
+	</div>
+	<div class="alert alert-success alert-dismissible fade show"
+		th:if="${saveUser eq 'success'}">
+		<button type="button" class="close" data-dismiss="alert"
+			aria-hidden="true">&times;</button>
+		<i class="fa fa-check-circle"></i><strong>User registered
+			Successfully</strong>
+	</div>
+	<div class="alert alert-warning alert-dismissible fade show"
+		th:if="${saveUser eq 'exist-name'}">
+		<button type="button" class="close" data-dismiss="alert"
+			aria-hidden="true">&times;</button>
+		<i class="fa fa-exclamation-circle"></i> <strong>Error!</strong> User
+		name already used !!!
+	</div>
+
+	<div class="alert alert-warning alert-dismissible fade show"
+		th:if="${saveUser eq 'exist-email'}">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<i class="fa fa-exclamation-circle"></i> <strong>Error!</strong> User
+		email already used !!!
+	</div>
+	<div class="alert alert-danger alert-dismissible fade show"
+		th:if="${saveUser eq 'fail'}">
+		<button type="button" class="close" data-dismiss="alert"
+			aria-hidden="true">&times;</button>
+		<i class="fa fa-exclamation-circle"></i> <strong>Error!</strong>
+		Unexpected error !!!
+	</div>
+	<br>
+	<br>
+	<div class="container">
+		<div class="card">
+			<div class="card-header">Add User</div>
+			<div class="card-body">
+				<form id="myForm" class="px-4 py-3" th:action="@{AddUser}"
+					th:object="${reqUser}" method="post">
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label>Username :</label> <input th:field="*{username}"
+								type="text" name="register_username" class="form-control"
+								placeholder="Username" required="required" value="" />
+						</div>
+						<div class="form-group col-md-6">
+							<label>Email:</label> <input th:field="*{email}" type="email"
+								name="register_email" class="form-control" placeholder="Email"
+								required="required" value="" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label>Password :</label> <input th:field="*{password}"
+							class="form-control" id="pass" placeholder="Password"
+							required="required" name="password1" type="password" /><p class="alert alert-danger" th:if="${#fields.hasErrors('password')}"
+								th:errors="*{password}" ></p>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label>Full Name</label> <input th:field="*{full_name}"
+								class="form-control" type="text" name="register_name" id="name"
+								placeholder="name" required="required" /><p class="alert alert-danger" th:if="${#fields.hasErrors('full_name')}"
+								th:errors="*{full_name}" ></p>
+						</div>
+						<div class="form-group col-md-6">
+							<label>Phone :</label> <input th:field="*{phone}" type="text"
+								class="form-control" name="register_phone" id="phone"
+								placeholder="phone" required="required" />
+							<p class="alert alert-danger" th:if="${#fields.hasErrors('phone')}"
+								th:errors="*{phone}" ></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>Role :</label> <select class="form-control" name="role">
+							<option
+								th:each="roleOpt : ${T(ergasia.katanemhmena.system.enums.Role).values()}"
+								th:value="${roleOpt}" th:text="${roleOpt}" id="role"
+								th:field="*{role}"></option>
+						</select>
+					</div>
+					<input type="submit" value="Add User"
+						class="btn btn-success btn-custom" />
+				</form>
+			</div>
+		</div>
+		<br> <br>
+	</div>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		
+	</script>
+</body>
+</html>

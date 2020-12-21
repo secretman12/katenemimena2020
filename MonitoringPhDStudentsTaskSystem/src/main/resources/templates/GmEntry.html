@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+	crossorigin="anonymous" />
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<title>Welcome Gm</title>
+</head>
+<body>
+	<div th:replace="fragments/GmHeader :: header"></div>
+	<div class="jumbotron">
+		<h1 class="display-4">Welcome General Member!</h1>
+		<p class="lead">Here you can create new Tasks!</p>
+		<hr class="my-4">
+		<p>For every new task a supervisor have to assign it to his PhD Student. <p>
+		<p class="lead">
+			<a class="btn btn-primary btn-lg" th:href="@{tasks}"  role="button">Learn
+				more</a>
+		</p>
+	</div>
+</body>
+</html>

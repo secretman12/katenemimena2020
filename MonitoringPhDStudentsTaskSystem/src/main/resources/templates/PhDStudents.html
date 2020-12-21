@@ -1,0 +1,67 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"></link>
+<link rel="icon" type="image/png" href="/img/flavicon.png" />
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<title>PhD Student</title>
+</head>
+<body>
+	<div th:replace="fragments/SecreteryHeader :: header"></div>
+	<div class="container">
+		<br> <br>
+		<table id="example" class="table table-hover">
+			<thead class="thead-light">
+				<tr>
+					<th class="th-sm" scope="col">Username</th>
+					<th class="th-sm" scope="col">Email</th>
+					<th class="th-sm" scope="col">Fullname</th>
+					<th class="th-sm" scope="col">Phone</th>
+					<th class="th-sm" scope="col">PhD Student</th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each="phd : ${phDStudents}">
+					<tr>
+						<td th:text="${phd.username}">" "</td>
+						<td th:text="${phd.email}">" "</td>
+						<td th:text="${phd.full_name}">" "</td>
+						<td th:text="${phd.phone}">" "</td>
+						<td><a class="btn btn-danger"
+							th:href="@{'getPhDStudent/' + ${phd.id}}"><i
+								class="fas fa-info"></i> Details</a></td>
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
+	</div>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#example').DataTable();
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"></link>
+<link rel="icon" type="image/png" href="/img/flavicon.png" />
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<title>My PhD Student</title>
+</head>
+<body>
+	<div th:replace="fragments/SupervisorHeader :: header"></div>
+	<div class="alert alert-success alert-dismissible fade show"
+		th:if="${addTask eq 'success'}">
+		<button type="button" class="close" data-dismiss="alert"
+			aria-hidden="true">&times;</button>
+		<i class="fa fa-check-circle"></i><strong>Task registered
+			Successfully </strong>
+	</div>
+	<div class="alert alert-warning alert-dismissible fade show"
+		th:if="${phd == null}">
+		<button type="button" class="close" data-dismiss="alert"
+			aria-hidden="true">&times;</button>
+		<i class="fa fa-exclamation-circle"></i> <strong>Warning</strong> You
+		havent PhD Student !
+	</div>
+	<div th:if="${phd != null}" class="container">
+		<br> <br>
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="card mb-3">
+					<div class="card-header">PhD Student</div>
+
+					<div class="card-body">
+						<div class="row">
+							<div class="col-sm-4">
+								<h6 class="mb-0">Full Name</h6>
+							</div>
+							<div class="col-sm-8 text-secondary" th:text="${phd.full_name}"></div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-4">
+								<h6 class="mb-0">Email</h6>
+							</div>
+							<div class="col-sm-8 text-secondary" th:text="${phd.email}"></div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-4">
+								<h6 class="mb-0">Username</h6>
+							</div>
+							<div class="col-sm-8 text-secondary" th:text="${phd.username}"></div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-4">
+								<h6 class="mb-0">Phone</h6>
+							</div>
+							<div class="col-sm-8 text-secondary" th:text="${phd.phone}"></div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-4">
+								<h6 class="mb-0">Task Status</h6>
+							</div>
+							<div class="col-sm-8 text-secondary"
+								th:text="${phd.task?.status}"></div>
+						</div>
+						<hr>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-8">
+				<h3>Select a task to assign to your PhD Student</h3>
+				<table id="example" class="table table-hover">
+					<thead class="thead-light">
+						<tr>
+							<th class="th-sm" scope="col">Teach lab points</th>
+							<th class="th-sm" scope="col">Grading points</th>
+							<th class="th-sm" scope="col">Surveillance points</th>
+							<th class="th-sm" scope="col">Status</th>
+							<th class="th-sm" scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<th:block th:each="task : ${tasks}">
+							<tr>
+								<td th:text="${task.teach_lab}">" "</td>
+								<td th:text="${task.grading}">" "</td>
+								<td th:text="${task.surveillance}">" "</td>
+								<td th:text="${task.status}">" "</td>
+								<td>
+									<form method="POST" th:action="@{addTask}">
+										<input type="hidden" name="id" id="taskId"
+											th:value="${task.id}" />
+										<button type="submit" name="submit" value="value"
+											class="btn btn-danger">Select</button>
+									</form>
+								</td>
+							</tr>
+						</th:block>
+					</tbody>
+				</table>
+
+
+			</div>
+		</div>
+	</div>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#example').DataTable();
+		});
+	</script>
+</body>
+</html>
