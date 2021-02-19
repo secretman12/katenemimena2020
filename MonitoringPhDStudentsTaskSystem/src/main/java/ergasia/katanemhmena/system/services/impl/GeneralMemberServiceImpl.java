@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ergasia.katanemhmena.system.entities.General_member;
-import ergasia.katanemhmena.system.entities.User;
 import ergasia.katanemhmena.system.repositories.GeneralMemberRepository;
 import ergasia.katanemhmena.system.services.GeneralMemberService;
 @Service
@@ -30,7 +29,7 @@ public class GeneralMemberServiceImpl implements GeneralMemberService {
         }
         return false;
     }
-    
+
     @Override
     public General_member update(General_member gm) {
         return gmRepository.save(gm);

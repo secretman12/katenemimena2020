@@ -6,12 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import ergasia.katanemhmena.system.enums.Role;
@@ -79,7 +77,7 @@ public class PhDStudent extends User {
 	public void setTask(Task task) {
 		this.task = task;
 	}
-    
+
 	@Override
 	public String toString() {
 		return "PhDStudent [teach_lab_hours=" + teach_lab_hours + ", xp_per_task=" + xp_per_task

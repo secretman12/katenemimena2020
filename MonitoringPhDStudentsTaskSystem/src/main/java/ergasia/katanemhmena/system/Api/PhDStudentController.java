@@ -1,9 +1,5 @@
 package ergasia.katanemhmena.system.Api;
 
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Collection;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,21 +8,17 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ergasia.katanemhmena.system.entities.PhDStudent;
 import ergasia.katanemhmena.system.exception.CustomException;
 import ergasia.katanemhmena.system.security.jwt.JwtTokenProvider;
-import ergasia.katanemhmena.system.security.jwt.MyUserDetails;
 import ergasia.katanemhmena.system.services.PhDStudentService;
 
 @RestController
@@ -66,10 +58,9 @@ public class PhDStudentController {
 	@RequestMapping(value = "/modify/{id}", method = RequestMethod.PUT, produces = { "application/json", "application/xml" })
 	public PhDStudent GetPhDTask(@RequestBody PhDStudent phdStudent,@PathVariable("id") int id) {
 		PhDStudent phd =phdService.findById(id);
-		phd.setTeach_lab_hours(phdStudent.getTeach_lab_hours());
-		phd.setXp_per_task(phdStudent.getXp_per_task());
-		phd.setSurveillance_hours(phdStudent.getSurveillance_hours());
-		System.out.println(phd.getEmail());
+		phd.setTeach_lab_hours(phd.getTeach_lab_hours()+phdStudent.getTeach_lab_hours());
+		phd.setXp_per_task(phd.getXp_per_task()+phdStudent.getXp_per_task());
+		phd.setSurveillance_hours(phd.getSurveillance_hours()+phdStudent.getSurveillance_hours());
 		phdService.update(phd);
 		return phd;
 	}

@@ -18,7 +18,6 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import ergasia.katanemhmena.system.security.jwt.JwtTokenFilterConfigurer;
 import ergasia.katanemhmena.system.security.jwt.JwtTokenProvider;
 import ergasia.katanemhmena.system.security.jwt.MyUserDetails;
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -34,9 +33,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
 	DataSource dataSource;
     @Autowired
-	MyUserDetails customUserDetailsService;
+    MyUserDetails customUserDetailsService;
     private AuthenticationSuccessHandler authenticationSuccessHandler;
-	 
+
     @Autowired
     public  void WebSecurityConfig(AuthenticationSuccessHandler authenticationSuccessHandler) {
         this.authenticationSuccessHandler = authenticationSuccessHandler;
@@ -46,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	           auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder())
 	                           .usersByUsernameQuery("select username,password,enabled from users where username=?")
 	                           .authoritiesByUsernameQuery("select username,role from users where username=?");
-	   }
+       }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -80,6 +79,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
       return super.authenticationManagerBean();
     }
-   
-    
+
+
 }

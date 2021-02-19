@@ -37,7 +37,7 @@
 					Supervisor
 					</div>
 					<div class="card-body">
-					
+
 						<div class="row">
 							<div class="col-sm-4">
 								<h6 class="mb-0">Full Name</h6>
@@ -70,7 +70,7 @@
 								th:text="${supervisor.phone}"></div>
 						</div>
 						<hr>
-						
+
 						<div class="row">
 							<div class="col-sm-4">
 								<h6 class="mb-0">PhD Student</h6>
@@ -103,7 +103,7 @@
 									<form method="POST" th:action="@{'/secretery/addPhD/'+${supervisor.id}}">
 										<input type="hidden" name="id" id="phdId" th:value="${phd.id}" />
 										<button type="submit" name="submit" value="value"
-											class="btn btn-danger">Select</button>
+											class="btn btn-success">Select</button>
 									</form>
 								</td>
 							</tr>

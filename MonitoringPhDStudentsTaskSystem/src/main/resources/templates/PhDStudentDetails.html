@@ -52,51 +52,62 @@
 							<hr>
 							<div class="row">
 								<div class="col-sm-4">
-									<h6 class="mb-0">Teach lab Points</h6>
+									<h6 class="mb-0">Teach lab Points Remaining</h6>
 								</div>
-								<input class="col-sm-8 text-secondary" th:field="*{teach_lab}"
+								<input class="col-sm-8 text-secondary" th:field="*{teach_lab}" id="teach_lab_points"
 									type="number">
 							</div>
 							<hr>
 							<div class="row">
 								<div class="col-sm-4">
-									<h6 class="mb-0">Grading Points</h6>
+									<h6 class="mb-0">Grading Points Remaining</h6>
 								</div>
-								<input class="col-sm-8 text-secondary" th:field="*{grading}"
+								<input class="col-sm-8 text-secondary" th:field="*{grading}" id="grading_points"
 									type="number">
 							</div>
 							<hr>
 							<div class="row">
 								<div class="col-sm-4">
-									<h6 class="mb-0">Surveillance Points</h6>
+									<h6 class="mb-0">Surveillance Points Remaining</h6>
 								</div>
 								<input class="col-sm-8 text-secondary"
-									th:field="*{surveillance}" type="number">
+									th:field="*{surveillance}" id="surveillance_points" type="number">
 							</div>
 							<hr>
-							<input type="hidden" th:field="*{id}" /> <input
-								class="btn btn-secondary" type="submit" value="Validate Task">
+
+							<input type="hidden" th:field="*{id}" />
+							<div class="d-flex justify-content-between">
+								<div>
+							<input
+								class="btn btn-success" type="submit" value="Validate Task">
+							</div>
+							<div>
+							<input class="btn btn-success" type="button" value="Calculate points" onclick="calculatePoints()" >
+							</div>
+							</div>
 						</form>
+							</div>
+
 					</div>
 				</div>
-			</div>
+
 			<div class="col-sm-5">
 				<div class="card mb-3">
-					<div class="card-header">PhD Student Work untill now</div>
+					<div class="card-header">PhD Student Work</div>
 					<div class="card-body">
 						<div class="row">
 							<div class="col-sm-4">
 								<h6 class="mb-0">Teach Lab hours</h6>
 							</div>
-							<div class="col-sm-8 text-secondary"
-								th:text="${phd.teach_lab_hours}"></div>
+							<div class="col-sm-8 text-secondary" th:attr="data-value=${phd.teach_lab_hours}"
+							th:text="${phd.teach_lab_hours}" data-value="1" id="teach_lab_hours"> </div>
 						</div>
 						<hr>
 						<div class="row">
 							<div class="col-sm-4">
 								<h6 class="mb-0">Grading</h6>
 							</div>
-							<div class="col-sm-8 text-secondary" th:text="${phd.xp_per_task}"></div>
+							<div class="col-sm-8 text-secondary" th:text="${phd.xp_per_task}" th:attr="data-value=${phd.xp_per_task}"  id="grading"></div>
 						</div>
 						<hr>
 						<div class="row">
@@ -104,7 +115,7 @@
 								<h6 class="mb-0">Surveillance Hours</h6>
 							</div>
 							<div class="col-sm-8 text-secondary"
-								th:text="${phd.surveillance_hours}"></div>
+							th:text="${phd.surveillance_hours}" th:attr="data-value=${phd.surveillance_hours}"  id="surveillance_hours"></div>
 						</div>
 						<hr>
 					</div>
@@ -112,14 +123,29 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		function calculatePoints() {
+			var teach_lab_points=document.getElementById("teach_lab_points").value;
+			var grading_points=document.getElementById("grading_points").value;
+			var surveillance_points=document.getElementById("surveillance_points").value;
+			var teach_lab_hours=document.getElementById("teach_lab_hours").getAttribute('data-value');
+			var grading=document.getElementById("grading").getAttribute('data-value');
+			var surveillance_hours=document.getElementById("surveillance_hours").getAttribute('data-value');
+			console.log(teach_lab_hours)
+			document.getElementById("teach_lab_points").value=teach_lab_points-teach_lab_hours;
+			document.getElementById("grading_points").value=grading_points-(grading/5);
+			document.getElementById("surveillance_points").value=surveillance_points-surveillance_hours;
 
+		}
+
+	</script>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	
+
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-	
+
 </body>
 </html>

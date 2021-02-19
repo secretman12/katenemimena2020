@@ -4,7 +4,6 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Table;
 
 import ergasia.katanemhmena.system.enums.General_member_type;
 import ergasia.katanemhmena.system.enums.Role;
@@ -42,6 +41,6 @@ public class General_member extends User {
 	public String toString() {
 		return "General_member [type=" + type + ", id=" + id + ", username=" + username + "]";
 	}
-    
-    
+
+
 }

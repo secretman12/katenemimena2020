@@ -2,7 +2,6 @@ package ergasia.katanemhmena.system.entities;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 import ergasia.katanemhmena.system.enums.Role;
 
@@ -24,5 +23,5 @@ public class Secretery extends User {
 	public String toString() {
 		return "Secretery [id=" + id + ", username=" + username + "]";
 	}
-	
+
 }
